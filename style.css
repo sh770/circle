@@ -1,0 +1,96 @@
+/* סגנון כללי לדף */
+body {
+  background: radial-gradient(
+    circle at center,
+    #0d0d0d,
+    #000
+  ); /* רקע עדין יותר */
+  display: flex; /* ממרכז את התוכן */
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* גובה כל המסך */
+  overflow: hidden; /* מסתיר גלילה */
+  margin: 0; /* מסיר רווחים */
+}
+
+/* העיגול עם הגרדיאנט והזוהר */
+.circle {
+  width: min(80vmin, 90vw); /* גודל העיגול מתאים למסך */
+  height: min(80vmin, 90vh); /* יחס עגול */
+  border-radius: 50%; /* עיגול מושלם */
+  position: relative; /* מאפשר שימוש ב-before */
+  background: conic-gradient(
+    from 0deg,
+    #ff5f6d,
+    #ffc371,
+    #ff9a9e,
+    #fad0c4,
+    #a18cd1,
+    #fbc2eb,
+    #84fab0,
+    #8fd3f4,
+    #ff5f6d
+  ); /* צבעים רכים וזוהרים */
+  animation: spin 5s linear infinite; /* סיבוב רגיל פעיל תמיד */
+  transition: all 0.3s ease; /* מעבר חלק */
+}
+
+/* שכבת זוהר מסביב לעיגול */
+.circle::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.4),
+    transparent 70%
+  );
+  filter: blur(40px); /* יוצר זוהר רך */
+  z-index: -1; /* מאחורי העיגול */
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+/* אפקט כאשר לוחצים על העיגול */
+.circle:active {
+  animation: spinReverse 1s linear infinite; /* סיבוב הפוך ומהיר רק בעת לחיצה */
+}
+
+/* סיבוב רגיל */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* סיבוב הפוך */
+@keyframes spinReverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* אפקט זוהר רך מתחלף */
+@keyframes glow {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
